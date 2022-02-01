@@ -1,3 +1,4 @@
+# sourcery skip: simplify-constant-sum, sum-comprehension
 import re
 
 with open('input.txt') as file:
@@ -8,8 +9,7 @@ with open('input.txt') as file:
 
 count_correct_pw = 0
 for min_, max_, letter, pw in pwlist:
-    letter_count = pw.count(letter)
-    if min_ <= letter_count <= max_:
+    if min_ <= pw.count(letter) <= max_:
         count_correct_pw += 1
 
 print(count_correct_pw)
