@@ -3,13 +3,13 @@ Advent of Code
 
     [About][Events][Shop][Settings][Log Out]
 
-Martin 2*
-      /^2020$/
+Martin 6*
+   var y=2020;
 
     [Calendar][AoC++][Sponsors][Leaderboard][Stats]
 
 Our sponsors help make Advent of Code possible:
-GitHub - We're hiring engineers to make GitHub fast. Interested? Email fast@github.com with details of exceptional performance work you've done in the past.
+Bolt - Fastest growing mobility startup in Europe: distributed systems, microservices, ML, complex algorithms for demand prediction, and much more!
 --- Day 2: Password Philosophy ---
 
 Your flight departs in a few days from the coastal airport; the easiest way down to the coast from here is via toboggan.
@@ -32,8 +32,29 @@ In the above example, 2 passwords are valid. The middle password, cdefg, is not;
 
 How many passwords are valid according to their policies?
 
-To begin, get your puzzle input.
+Your puzzle answer was 416.
+--- Part Two ---
 
-Answer:
+While it appears you validated the passwords correctly, they don't seem to be what the Official Toboggan Corporate Authentication System is expecting.
+
+The shopkeeper suddenly realizes that he just accidentally explained the password policy rules from his old job at the sled rental place down the street! The Official Toboggan Corporate Policy actually works a little differently.
+
+Each policy actually describes two positions in the password, where 1 means the first character, 2 means the second character, and so on. (Be careful; Toboggan Corporate Policies have no concept of "index zero"!) Exactly one of these positions must contain the given letter. Other occurrences of the letter are irrelevant for the purposes of policy enforcement.
+
+Given the same example list from above:
+
+    1-3 a: abcde is valid: position 1 contains a and position 3 does not.
+    1-3 b: cdefg is invalid: neither position 1 nor position 3 contains b.
+    2-9 c: ccccccccc is invalid: both position 2 and position 9 contain c.
+
+How many passwords are valid according to the new interpretation of the policies?
+
+Your puzzle answer was 688.
+
+Both parts of this puzzle are complete! They provide two gold stars: **
+
+At this point, you should return to your Advent calendar and try another puzzle.
+
+If you still want to see it, you can get your puzzle input.
 
 You can also [Shareon Mastodon] this puzzle.

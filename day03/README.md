@@ -3,13 +3,13 @@ Advent of Code
 
     [About][Events][Shop][Settings][Log Out]
 
-Martin 4*
-          2020
+Martin 6*
+   sub y{2020}
 
     [Calendar][AoC++][Sponsors][Leaderboard][Stats]
 
 Our sponsors help make Advent of Code possible:
-Codethink - Codethink is a software services company, expert in the use of Open Source technologies for systems software engineering.
+Scaleway - The Cloud that makes sense. Create, deploy and scale your infrastructure in the cloud designed for Developers.
 --- Day 3: Toboggan Trajectory ---
 
 With the toboggan login problems resolved, you set off toward the airport. While travel by toboggan might be easy, it's certainly not safe: there's very minimal steering and the area is covered in trees. You'll need to see which angles will take you near the fewest trees.
@@ -66,8 +66,29 @@ In this example, traversing the map using this slope would cause you to encounte
 
 Starting at the top-left corner of your map and following a slope of right 3 and down 1, how many trees would you encounter?
 
-To begin, get your puzzle input.
+Your puzzle answer was 232.
+--- Part Two ---
 
-Answer:
+Time to check the rest of the slopes - you need to minimize the probability of a sudden arboreal stop, after all.
+
+Determine the number of trees you would encounter if, for each of the following slopes, you start at the top-left corner and traverse the map all the way to the bottom:
+
+    Right 1, down 1.
+    Right 3, down 1. (This is the slope you already checked.)
+    Right 5, down 1.
+    Right 7, down 1.
+    Right 1, down 2.
+
+In the above example, these slopes would find 2, 7, 3, 4, and 2 tree(s) respectively; multiplied together, these produce the answer 336.
+
+What do you get if you multiply together the number of trees encountered on each of the listed slopes?
+
+Your puzzle answer was 3952291680.
+
+Both parts of this puzzle are complete! They provide two gold stars: **
+
+At this point, you should return to your Advent calendar and try another puzzle.
+
+If you still want to see it, you can get your puzzle input.
 
 You can also [Shareon Mastodon] this puzzle.
