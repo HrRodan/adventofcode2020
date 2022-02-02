@@ -13,7 +13,7 @@ print(result)
 
 # part 2
 def check_hgt(hgt: str):
-    if match := re.match(r'(\d+)(cm|in)', hgt):
+    if match := re.match(r'^(\d+)(cm|in)$', hgt):
         height, unit = match.groups()
         return (unit == 'cm' and 150 <= int(height) <= 193) \
                or (unit == 'in' and 59 <= int(height) <= 76)
