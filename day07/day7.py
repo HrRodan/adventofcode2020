@@ -1,12 +1,11 @@
 import functools
 import re
 
-with open('input_test2.txt') as file:
+with open('input.txt') as file:
     rules = [line.strip()[:-1] for line in file.readlines() if line.strip()]
 
 # noinspection PyTypeChecker
-rules = dict(rule.replace('bags', 'bag').split(' contain ') for rule in rules
-             for value in [rule.replace('bags', 'bag').split(' contain ')])
+rules = dict(rule.replace('bags', 'bag').split(' contain ') for rule in rules)
 
 rules_clean = {key: {} for key in rules}
 for key, value in rules.items():
@@ -35,23 +34,16 @@ def find_upmost_bags(intital_bag: str):
     find_next_bag(intital_bag)
     return final_bags - {intital_bag}
 
-def count_inner_bags(initial_bag: str):
+#part2
 
-    def traverse_bags(current_bag):
-        if not rules_clean[current_bag]:
-            return 1
-        count_bag = 0 #sum(rules_clean[current_bag].values())
-        for bag_, number_bag in rules_clean[current_bag].items():
-            print(f'{bag_} {number_bag}')
-            count_bag += number_bag*traverse_bags(bag_)
-
-
-        return count_bag
-
-    return traverse_bags(initial_bag)
+def traverse_bags(current_bag):
+    return sum(
+        number_bag * (1 + traverse_bags(bag_))
+        for bag_, number_bag in rules_clean[current_bag].items()
+    )
 
 
 if __name__ == '__main__':
     bag_start = 'shiny gold bag'
     print(len(find_upmost_bags(bag_start)))
-    print(count_inner_bags(bag_start))
+    print(traverse_bags(bag_start))
