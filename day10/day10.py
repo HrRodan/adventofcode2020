@@ -1,3 +1,7 @@
+import functools
+import itertools as it
+from typing import Tuple
+
 import numpy as np
 
 with open('input.txt') as file:
@@ -30,7 +34,20 @@ consecutive_1s = np.diff(diff_3_indices, prepend=-1)
 # two adapters are always "frozen" due to the maximum jolt difference of three
 consecutive_1s_unfrozen = np.where(consecutive_1s > 2, consecutive_1s - 2, 0)
 
-#maximum number of consecutive unfrozen 1s is 3 -> in this case there 7 possibilites (instead of 2*8)
-#in this case removing all adapters is not possible
+# maximum number of consecutive unfrozen 1s is 3 -> in this case there 7 possibilites (instead of 2*8)
+# in this case removing all adapters is not possible
 possibilites = np.prod(2 ** consecutive_1s_unfrozen - np.where(consecutive_1s_unfrozen == 3, 1, 0))
 print(possibilites)
+
+
+@functools.cache
+def number_arrangements(number_1s: int):
+    return sum(1 for c in it.product([0, 1], repeat = number_1s) if
+               np.max(np.diff(np.diff(c, append=1, prepend=1).nonzero()), initial=0) < 3)
+
+for i in it.product([0, 1], repeat = 5):
+    if np.max(np.diff(np.diff(i, append=1, prepend=1).nonzero()), initial=0) >= 3:
+        print(i)
+
+def count_consecutive_zeros(tup : Tuple[int]):
+    pass
