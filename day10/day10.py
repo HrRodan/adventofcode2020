@@ -42,12 +42,20 @@ print(possibilites)
 
 @functools.cache
 def number_arrangements(number_1s: int):
-    return sum(1 for c in it.product([0, 1], repeat = number_1s) if
-               np.max(np.diff(np.diff(c, append=1, prepend=1).nonzero()), initial=0) < 3)
+    return sum(
+        not more_than_three_consecutive_zeros(c)
+        for c in it.product([0, 1], repeat=number_1s)
+    )
 
-for i in it.product([0, 1], repeat = 5):
-    if np.max(np.diff(np.diff(i, append=1, prepend=1).nonzero()), initial=0) >= 3:
-        print(i)
 
-def count_consecutive_zeros(tup : Tuple[int]):
-    pass
+def more_than_three_consecutive_zeros(tup: Tuple[int]):
+    count = 0
+    for n in tup:
+        if n == 0:
+            count += 1
+            if count >= 3:
+                return True
+        else:
+            count = 0
+
+    return False
