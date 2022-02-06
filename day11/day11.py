@@ -3,8 +3,9 @@ from itertools import product
 from typing import List, Tuple
 
 import numpy as np
+from scipy import ndimage
 
-with open('input.txt') as file:
+with open('test_part2.txt') as file:
     data = file.read()
 
 data = data.translate({ord('L'): '0', ord('#'): '1', ord('.'): '3'})
@@ -41,10 +42,12 @@ for i in range(5000):
         print(np.count_nonzero(hall == 1))
         break
 
-#part2
+
+# part2
 
 def point_add(point1: Tuple, point2: Tuple):
     return point1[0] + point2[0], point1[1] + point2[1]
+
 
 list_of_points = set(np.ndindex(hall_start.shape))
 
@@ -52,7 +55,7 @@ next_seats = {point: [] for point in list_of_points if hall_start[point] in [0, 
 directions = list(product([1, -1, 0], repeat=2))
 directions.remove((0, 0))
 
-#calculate all next visible seats per seat
+# calculate all next visible seats per seat
 for point in next_seats:
     for d in directions:
         p = point_add(point, d)
@@ -62,8 +65,12 @@ for point in next_seats:
                 break
             p = point_add(p, d)
 
+#next_seats = {point: np.transpose(seats) for point, seats in next_seats.items()}
+
+
 def get_occupied_next_seats(seat: Tuple[int, int], hall_to_test: np.array):
     return sum(hall_to_test[seat_] for seat_ in next_seats[seat])
+
 
 hall = hall_start.copy()
 for i in range(5000):
