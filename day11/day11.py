@@ -5,7 +5,7 @@ from typing import List, Tuple
 import numpy as np
 from scipy import ndimage
 
-with open('test_part2.txt') as file:
+with open('input.txt') as file:
     data = file.read()
 
 data = data.translate({ord('L'): '0', ord('#'): '1', ord('.'): '3'})
@@ -14,17 +14,11 @@ data = [[int(x) for x in list(line.strip())] for line in data.split('\n')]
 hall_start = np.array(data, dtype=np.ubyte)
 
 
-def change_seat(adjacent_seats: List[int]):
-    return change_seat_memo(tuple(adjacent_seats))
-
-
-@functools.cache
-def change_seat_memo(adjacent_seats_tuple: Tuple[int]):
-    this_seat = adjacent_seats_tuple[4]
+def change_seat(adjacent_seats: np.array):
+    this_seat = adjacent_seats[4]
     if this_seat == 3:
         return this_seat
-    # subtract this seat (0 for unoccupied, 1 for occupied)
-    occupied_seats = adjacent_seats_tuple.count(1) - this_seat
+    occupied_seats = np.count_nonzero(adjacent_seats == 1) - this_seat
     if occupied_seats == 0:
         return 1
     elif occupied_seats >= 4:
@@ -64,8 +58,6 @@ for point in next_seats:
                 next_seats[point].append(p)
                 break
             p = point_add(p, d)
-
-#next_seats = {point: np.transpose(seats) for point, seats in next_seats.items()}
 
 
 def get_occupied_next_seats(seat: Tuple[int, int], hall_to_test: np.array):
