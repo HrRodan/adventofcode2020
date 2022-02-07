@@ -20,26 +20,7 @@ bins = np.bincount(diff)
 print(bins[1] * bins[3])
 
 # part 2
-
-# only 1 and 3 as jolt difference exist
-# the only possibility for skipping adapters from the ordered list is where the jolt difference is 1
-# Consecutive number of x "1" differences lead to possibilities 2**(x-2)
-
-# gett all indizes of jolt differences of three
-diff_3_indices = (diff == 3).nonzero()
-
-# get differences of the indices which equals the number of consecutive "1" differences
-consecutive_1s = np.diff(diff_3_indices, prepend=-1)
-
-# two adapters are always "frozen" due to the maximum jolt difference of three
-consecutive_1s_unfrozen = np.where(consecutive_1s > 2, consecutive_1s - 2, 0)
-
-# maximum number of consecutive unfrozen 1s is 3 -> in this case there 7 possibilites (instead of 2*8)
-# in this case removing all adapters is not possible
-possibilites = np.prod(2 ** consecutive_1s_unfrozen - np.where(consecutive_1s_unfrozen == 3, 1, 0))
-print(possibilites)
-
-
+@np.vectorize
 @functools.cache
 def number_arrangements(number_1s: int):
     return sum(
@@ -59,3 +40,24 @@ def more_than_three_consecutive_zeros(tup: Tuple[int]):
             count = 0
 
     return False
+
+# only 1 and 3 as jolt difference exist
+# the only possibility for skipping adapters from the ordered list is where the jolt difference is 1
+# Consecutive number of x "1" differences lead to possibilities 2**(x-2)
+
+# gett all indizes of jolt differences of three
+diff_3_indices = (diff == 3).nonzero()
+
+# get differences of the indices which equals the number of consecutive "1" differences
+consecutive_1s = np.diff(diff_3_indices, prepend=-1)
+
+# two adapters are always "frozen" due to the maximum jolt difference of three
+consecutive_1s_unfrozen = np.where(consecutive_1s > 2, consecutive_1s - 2, 0)
+
+# maximum number of consecutive unfrozen 1s is 3 -> in this case there 7 possibilites (instead of 2*8)
+# in this case removing all adapters is not possible
+possibilites = np.prod(number_arrangements(consecutive_1s_unfrozen))
+print(possibilites)
+
+
+
