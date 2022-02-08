@@ -14,7 +14,7 @@ print(result[0] * (result[1] - dep))
 
 # part 2
 
-lines_enum = [(line[0], int(line[1])) for line in enumerate(lines_raw.split(',')) if line[1] != 'x']
+lines_enum = [(enum, int(line)) for enum, line in enumerate(lines_raw.split(',')) if line != 'x']
 
 
 def find_earliest_departure(lines_in: List[Tuple[int, int]], start: int = 0, increment: int = 1):
