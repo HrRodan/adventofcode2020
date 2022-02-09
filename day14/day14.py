@@ -23,7 +23,6 @@ for mask, program in mask_program:
 
 print(sum(memory.values()))
 
-
 # part2
 
 memory = defaultdict(lambda: 0)
@@ -31,9 +30,11 @@ for mask, program in mask_program:
     # and mask not necessary
     or_mask = int(re.sub(r'[X]', '0', mask), base=2)
     x_mask_raw = re.sub(r'[^X]', 'Z', mask)
-    for p in product([1, 0], repeat=x_mask_raw.count('X')):
-        p_iter = iter(p)
-        x_mask_str = re.sub('X', lambda _: str(next(p_iter)), x_mask_raw)
+    for p in product('10', repeat=x_mask_raw.count('X')):
+        x_mask_str = x_mask_raw
+        # looping with replace is fast than sub with lambda and iterator
+        for n in p:
+            x_mask_str = x_mask_str.replace('X', n, 1)
         x_mask_and = int(x_mask_str.replace('Z', '1'), base=2)
         x_mask_or = int(x_mask_str.replace('Z', '0'), base=2)
         for memory_postion, value in program.items():
