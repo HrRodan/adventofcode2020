@@ -13,7 +13,7 @@ for element in input_:
                for x, y in [re.match(r'^mem\[(\d+)] = (\d+)$', line.strip()).groups()]}
     mask_program.append((mask_raw, program))
 
-#part1
+# part1
 
 memory = defaultdict(lambda: 0)
 for mask, program in mask_program:
@@ -30,15 +30,17 @@ print(sum(memory.values()))
 memory = defaultdict(lambda: 0)
 for mask, program in mask_program:
     # and mask not necessary
-    or_mask = int(re.sub(r'[X]', '0', mask), base=2)
-    x_mask_raw = re.sub(r'[^X]', 'Z', mask)
-    for p in product('10', repeat=x_mask_raw.count('X')):
-        x_mask_str = x_mask_raw
+    or_mask = int(mask.replace('X', '0'), base=2)
+    # translate mask for floating bits
+    x_mask_raw = mask.translate({ord('0'): '_', ord('1'): '_', ord('X'): '{}'})
+    for p in product('10', repeat=x_mask_raw.count('{}')):
+        x_mask_str = x_mask_raw.format(*p)
         # looping with replace is faster than sub with lambda and iterator
-        for n in p:
-            x_mask_str = x_mask_str.replace('X', n, 1)
-        x_mask_and = int(x_mask_str.replace('Z', '1'), base=2)
-        x_mask_or = int(x_mask_str.replace('Z', '0'), base=2)
+        # for n in p:
+        #     #replace only one 'X' per loop
+        #     x_mask_str = x_mask_str.replace('X', n, 1)
+        x_mask_and = int(x_mask_str.replace('_', '1'), base=2)
+        x_mask_or = int(x_mask_str.replace('_', '0'), base=2)
         for memory_postion, value in program.items():
             position = ((memory_postion | or_mask) & x_mask_and) | x_mask_or
             memory[position] = value
