@@ -13,6 +13,8 @@ for element in input_:
                for x, y in [re.match(r'^mem\[(\d+)] = (\d+)$', line.strip()).groups()]}
     mask_program.append((mask_raw, program))
 
+#part1
+
 memory = defaultdict(lambda: 0)
 for mask, program in mask_program:
     and_mask = int(re.sub(r'[^0]', '1', mask), base=2)
@@ -32,7 +34,7 @@ for mask, program in mask_program:
     x_mask_raw = re.sub(r'[^X]', 'Z', mask)
     for p in product('10', repeat=x_mask_raw.count('X')):
         x_mask_str = x_mask_raw
-        # looping with replace is fast than sub with lambda and iterator
+        # looping with replace is faster than sub with lambda and iterator
         for n in p:
             x_mask_str = x_mask_str.replace('X', n, 1)
         x_mask_and = int(x_mask_str.replace('Z', '1'), base=2)
