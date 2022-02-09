@@ -17,7 +17,7 @@ print(result[0] * (result[1] - dep))
 lines_enum = [(enum, int(line)) for enum, line in enumerate(lines_raw.split(',')) if line != 'x']
 
 
-def find_earliest_departure(lines_in: List[Tuple[int, int]], start: int = 0, increment: int = 1):
+def find_earliest_departure(lines_in: List[Tuple[int, int]], start: int = 0, increment: int = None):
     '''
     Calculates the initial departure for the lines pairwise and interates through all lines. Each subsequent
     pairwise calculation inherits the start and increment of the previous pair to ensure that the new departure time
@@ -25,15 +25,15 @@ def find_earliest_departure(lines_in: List[Tuple[int, int]], start: int = 0, inc
     '''
     if len(lines_in) <= 1:
         return start
-    i = start
+
     pair = lines_in[:2]
+    if not increment:
+        increment = pair[0][1]
+    i = start
     while True:
         i += increment
         if all(((i + enum) % line) == 0 for enum, line in pair):
-            # use least common multiple on old and new increment to obtain the smallest next increment which still
-            # ensures that the already matched lines are still being valid in the next calculated departure time
-            return find_earliest_departure(lines_in=lines_in[1:], start=i,
-                                           increment=math.lcm(pair[0][1] * pair[1][1], increment))
+            return find_earliest_departure(lines_in=lines_in[1:], start=i, increment=increment*pair[1][1])
 
 
 print(find_earliest_departure(lines_enum))
