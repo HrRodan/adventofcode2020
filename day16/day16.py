@@ -1,3 +1,7 @@
+# should be pssible with CSP Solver
+#https://pypi.org/project/python-constraint/
+#https://en.wikipedia.org/wiki/Constraint_satisfaction_problem
+
 import re
 from typing import Tuple
 
