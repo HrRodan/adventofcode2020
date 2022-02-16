@@ -35,4 +35,4 @@ for ingredients, _ in foods:
             count_non_allergene_ingredients += 1
 
 print(count_non_allergene_ingredients)
-print(','.join(next(iter(y)) for _, y in sorted(allergen_translation.items(), key=lambda x: x[0])))
+print(','.join(next(iter(y)) for _, y in sorted(allergen_translation.items())))
