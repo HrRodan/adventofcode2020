@@ -28,11 +28,9 @@ while any(len(t) != 1 for t in allergen_translation.values()):
 all_allergenes_translated = set().union(*allergen_translation.values())
 non_allergene_ingredients = all_ingredients - all_allergenes_translated
 
-count_non_allergene_ingredients = 0
-for ingredients, _ in foods:
-    for ingredient in ingredients:
-        if ingredient in non_allergene_ingredients:
-            count_non_allergene_ingredients += 1
+count_non_allergene_ingredients = sum(ingredient in non_allergene_ingredients
+                                      for ingredients, _ in foods
+                                      for ingredient in ingredients)
 
 print(count_non_allergene_ingredients)
 print(','.join(next(iter(y)) for _, y in sorted(allergen_translation.items())))
